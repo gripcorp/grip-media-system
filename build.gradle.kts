@@ -89,6 +89,9 @@ dependencies {
     implementation("joda-time:joda-time:2.13.0")
     implementation("com.google.guava:guava:33.4.0-jre")
 
+    // Environment Variables (.env file support)
+    implementation("io.github.cdimascio:dotenv-java:3.0.2")
+
     // OpenAPI/Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3")
 
@@ -133,29 +136,6 @@ tasks.withType<Test> {
 tasks {
     processResources {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    }
-}
-
-extra["profile"] = if(!project.hasProperty("profile")) "local" else project.property("profile")
-println ("build profile : ${project.extra["profile"]}")
-
-sourceSets {
-    main {
-        java.srcDirs("src/main/kotlin")
-
-        resources {
-            srcDirs ("src/main/resources", "src/main/resources-${project.extra["profile"]}")
-            println ("java.srcDirs = ${java.srcDirs}")
-            println ("resources.srcDirs = ${resources.srcDirs}")
-        }
-    }
-
-    test {
-        java {
-        }
-
-        resources {
-        }
     }
 }
 

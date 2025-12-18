@@ -48,6 +48,17 @@ logs/
 .env.local
 .env.*.local
 
+# Secret configuration files (never commit these!)
+application-local-secret.yml
+application-dev-secret.yml
+application-real-secret.yml
+*-secret.yml
+*-secret.properties
+*.pem
+*.key
+*.p12
+*.jks
+
 # Generated files
 src/main/generated/
 

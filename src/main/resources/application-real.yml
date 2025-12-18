@@ -1,0 +1,94 @@
+spring:
+  config:
+    activate:
+      on-profile: real
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://aurora-cluster-apne2-grip-prod-proxy.proxy-cox1qrflyuhq.ap-northeast-2.rds.amazonaws.com:3306/common?verifyServerCertificate=false&useSSL=true&enabledTLSProtocols=TLSv1.2&socketTimeout=6000&connectTimeout=60000&useUnicode=true&character_set_server=utf8mb4&autoReconnect=true&serverTimezone=Asia/Seoul
+      username: ${REAL_DB_USERNAME:}
+      password: ${REAL_DB_PASSWORD:}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      connection-test-query: SELECT 1
+      validation-timeout: 500
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-timeout: 30000
+    slave:
+      hikari:
+        jdbc-url: jdbc:mysql://aurora-cluster-apne2-grip-prod-proxy-read-only.endpoint.proxy-cox1qrflyuhq.ap-northeast-2.rds.amazonaws.com:3306/common?verifyServerCertificate=false&useSSL=true&enabledTLSProtocols=TLSv1.2&socketTimeout=6000&connectTimeout=60000&useUnicode=true&character_set_server=utf8mb4&autoReconnect=true&serverTimezone=Asia/Seoul
+        username: ${REAL_DB_USERNAME:}
+        password: ${REAL_DB_PASSWORD:}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        connection-test-query: SELECT 1
+        validation-timeout: 500
+        minimum-idle: 5
+        maximum-pool-size: 10
+        idle-timeout: 30000
+        max-lifetime: 2000000
+        connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+  data:
+    redis:
+      host: redis-apne2-grip-prod.kr6tle.ng.0001.apn2.cache.amazonaws.com
+      port: 6379
+      password:
+      timeout: 3000ms
+  cloud:
+    gcp:
+      credentials:
+        location: classpath:/config/grip-firebase-adminsdk.json
+      project-id: grip-8c4ce
+
+server:
+  tomcat:
+    max-threads: 2048
+    min-spare-threads: 512
+
+google.cloud.firestore.api.key: ${GOOGLE_CLOUD_API_KEY}
+google.cloud.client.id: ${GOOGLE_CLOUD_CLIENT_ID}
+google.cloud.client.passwd: ${GOOGLE_CLOUD_CLIENT_SECRET}
+
+common.phase: real
+cache.version: 1
+log.dir: logs
+exception.mode.debug: false
+auth.secret: ${AUTH_SECRET}
+core.resource.url: http://grip-admin:8070/api/resource/api/properties
+core.resource.dir: /home/grip/resources
+domain.static: https://static-ssl.grip.show
+domain.static.ssl: https://static-ssl.grip.show
+domain.video: https://vod.grip.show
+domain.thumbnail: https://thumb-ssl.grip.show
+domain.vod: https://vod.grip.show
+fs.server.host: http://grip-fs-service.prod-public-kr
+api.server.host: http://grip-api-service.prod-public-kr
+benefit-internal-api: http://grip-benefit-internal-api-service.prod-private-kr
+batch.server.host: http://grip-batch-service.prod-batch-system
+chat.web.server.host: http://grip-pipe-api-service.prod-private-kr
+ai.server.host: https://api-aibigdata.grip.studio
+
+aws:
+  ivs:
+    region: ap-northeast-2
+    account-id: ${AWS_ACCOUNT_ID:}
+    channel-type: STANDARD
+    recording:
+      enabled: true
+      s3:
+        bucket: grip-ivs-recordings-prod
+      thumbnail:
+        interval: 60
+        storage: LATEST
+
+ivs.playback.uri.format: https://%s.playback.live-video.net/api/video/v1/%s.%s.channel.%s.m3u8
+ivs.ingest.uri.format: rtmps://%s.global-contribute.live-video.net:443/app/%s

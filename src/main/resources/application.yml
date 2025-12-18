@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: grip-media-system
+  profiles:
+    default: local
+
+server:
+  port: 8090
+  connection-timeout: 5s
+  shutdown: graceful
+  tomcat:
+    max-threads: 1024
+    min-spare-threads: 128
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    show.grip.mms: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

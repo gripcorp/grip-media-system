@@ -8,21 +8,27 @@ import software.amazon.awssdk.services.ivs.IvsClient
 import software.amazon.awssdk.services.s3.S3Client
 
 @Configuration
-class AwsConfig {
+class AwsConfig(
+    private val ivsProperties: IvsProperties
+) {
+
+    private fun awsRegion(): Region = Region.of(ivsProperties.region)
+
+    private fun credentialsProvider() = DefaultCredentialsProvider.create()
 
     @Bean
     fun ivsClient(): IvsClient {
         return IvsClient.builder()
-            .region(Region.AP_NORTHEAST_2)
-            .credentialsProvider(DefaultCredentialsProvider.create())
+            .region(awsRegion())
+            .credentialsProvider(credentialsProvider())
             .build()
     }
 
     @Bean
     fun s3Client(): S3Client {
         return S3Client.builder()
-            .region(Region.AP_NORTHEAST_2)
-            .credentialsProvider(DefaultCredentialsProvider.create())
+            .region(awsRegion())
+            .credentialsProvider(credentialsProvider())
             .build()
     }
 }
