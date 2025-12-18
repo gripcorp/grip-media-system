@@ -1,4 +1,4 @@
-# grip-media-management-system
+# grip-media-system
 
 라이브 방송을 간단히 시작·종료하고, 방송 상태와 VOD 저장을 관리하는 미디어 관리 서비스입니다. 
 스트리밍 공급자는 AWS IVS 또는 BytePlus 중에서 선택적으로 구성할 수 있도록 설계되었습니다.

@@ -5,4 +5,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = "grip-media-management-system"
+rootProject.name = "grip-media-system"

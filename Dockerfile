@@ -16,11 +16,11 @@ ADD 'https://dtdg.co/latest-java-tracer' /home/grip/datadog/dd-java-agent.jar
 
 # Scripts & Application
 COPY scripts /home/grip/scripts
-COPY build/libs/grip-media-management-system-*-SNAPSHOT.jar /home/grip/deploy/grip-media-management-system.jar
+COPY build/libs/grip-media-system-*-SNAPSHOT.jar /home/grip/deploy/grip-media-system.jar
 RUN chmod +x /home/grip/scripts/startup.sh
 
 EXPOSE 8090
 
 ARG phase
 ENV SPRING_PROFILES_ACTIVE=$phase
-ENTRYPOINT ["/home/grip/scripts/startup.sh", "grip-media-management-system.jar"]
+ENTRYPOINT ["/home/grip/scripts/startup.sh", "grip-media-system.jar"]

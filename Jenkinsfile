@@ -5,7 +5,7 @@ pipeline {
         app = ''
         phase = "dev"
         registry_name = "142123216080.dkr.ecr.ap-northeast-2.amazonaws.com"
-        module_name = "dev/grip-media-management-system"
+        module_name = "dev/grip-media-system"
         image_path = "${registry_name}/${module_name}"
     }
 

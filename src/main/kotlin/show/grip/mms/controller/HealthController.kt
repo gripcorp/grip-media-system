@@ -12,7 +12,7 @@ class HealthController {
     fun health(): Map<String, String> {
         return mapOf(
             "status" to "UP",
-            "service" to "grip-media-management-system",
+            "service" to "grip-media-system",
             "version" to "1.0.0"
         )
     }
